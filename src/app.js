@@ -1,39 +1,44 @@
-const express = require('express');
-const fs = require('fs');
+import express from "express";
+import { ProductManager } from "./ProductManager.js";
+const port = 8080;
 
-// Importa la clase ProductManager desde el archivo correspondiente
-const ProductManager = require('./ProductManager.js').default;
-
-// Crea una instancia de Express
+//creamos la aplicacion del servidor
 const app = express();
-const port = 8080; // Puedes cambiar el puerto si lo deseas
 
-// Endpoint para obtener todos los productos
-app.get('/products', (req, res) => {
-  // Lee el archivo de productos
-  fs.readFile('productos.json', 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send('Error al leer los productos');
+//levantar el servidor
+app.listen(port,()=>console.log(`El servidor esta escuchando en el puerto ${port}`));
+
+//crear objeto producto
+const product = new ProductManager(`./products.js`);
+let resultado = 0;
+
+app.get("/products",(req,res)=>{
+    try {
+        const result = product.getProducts();
+        console.log("result: ", result);
+        const limite = parseInt(req.query.limit);
+        console.log("limite: ", limite);
+        if (limite>0) {
+            resultado = result.filter(producto=>producto.id <= limite);
+        } else {
+            resultado = result;
+        }
+        res.send(resultado);
+    } catch (error) {
+        res.send(error.message);
     }
-
-    // Parsea el contenido del archivo JSON
-    const products = JSON.parse(data);
-
-    // Verifica si se especificó un límite en la consulta
-    const limit = req.query.limit;
-
-    // Si no se especifica límite o es inválido, devuelve todos los productos
-    if (!limit || isNaN(limit)) {
-      return res.json(products);
-    }
-
-    // Devuelve los primeros 'limit' productos
-    return res.json(products.slice(0, limit));
-  });
 });
 
-// Inicia el servidor
-app.listen(port, () => {
-  console.log(`Servidor Express escuchando en el puerto ${port}`);
+app.get("/products/:pid",(req,res)=>{
+    try {
+    const pid = parseInt(req.params.pid);
+    const result = product.getProductById(pid);
+        if (!result) {
+            console.log("El producto no existe");
+        } else {
+            res.send(result);
+        }
+    } catch (error) {
+        res.send(error.message);
+    }
 });
