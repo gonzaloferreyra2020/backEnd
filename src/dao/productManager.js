@@ -26,15 +26,14 @@ export class ProductManager{
         }
     };
 
-    async getById(id){
-        //devuelve el producto que cumple con el id recibido
-        const product = this.products.find((p) => p.id === id);
-        if (!product) {
-            console.error('no hay producto con el ID seleccionado');
-            return;
+    async getProductById(id) {
+        const product = this.products.find((product) => product.id === id);
+        if (product) {
+            return product;
+        } else {
+            console.error("No hay producto");
         }
-        return product;
-    };
+    }
 
     async save(product){
         try {
@@ -59,5 +58,19 @@ export class ProductManager{
             throw error;
         }
     };
+
+    updateProduct(id, updatedFields) {
+        const productIndex = this.products.findIndex((p) => p.id === id);
+        if (productIndex === -1) {
+            console.error('Not found');
+            return;
+        } else {
+            console.log("Producto para update encontrado!");
+        }
+
+        const updatedProduct = { ...this.products[productIndex], ...updatedFields };
+        this.products[productIndex] = updatedProduct;
+        this.saveProducts();
+    }
 }
 

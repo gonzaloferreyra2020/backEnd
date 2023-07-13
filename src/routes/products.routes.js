@@ -42,7 +42,7 @@ router.get("/", async (req,res)=>{
 router.get("/:pid",async (req,res)=>{
     try {
         const pid = req.params.pid;
-        const result = await productService.getById(pid);
+        const result = await productService.getProductById(pid);
         res.json({ status: 'success', data: result });
     } catch (error) {
         res.json({ status: 'error', message: error.message });
@@ -64,7 +64,16 @@ router.post("/", validateFields, async (req,res)=>{
 
 //actualizar productos
 router.put("/:pid",validateFields,(req,res)=>{
-    const productInfo = req.body;
+    try {
+        const pid = req.params.pid;
+        const productInfo = req.body;
+        const result =  productService.updateProduct(pid, productInfo);
+        result.id = pid;
+        res.json({ status: 'success', data: result });
+    } catch (error) {
+        res.json({ status: 'error', message: error.message });
+        //throw new Error(error.message);
+    }
 
 });
 router.delete("/:pid",(req,res)=>{});

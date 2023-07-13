@@ -59,14 +59,13 @@ export class CartManager{
             });
             const data = JSON.stringify(this.carts, null, 4);
             await fs.promises.writeFile(this.path, data);
-            console.log('Carrito actualizado:', cart);
-            return 'Archivo de carrito guardado.';
+            return 'se actualizó el carrito.';
         } catch (error) {
             throw new Error(error.message);
         }
     }
 
-
+//buscar carrito por ID
     async getCartById(id) {
         try {
             if (this.fileExists()) {
