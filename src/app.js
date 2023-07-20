@@ -45,12 +45,12 @@ socketServer.on("connection", async (socketConnected)=>{
     // enviando lista de productos
     socketConnected.emit('listProductReal',listProductRealTime );
 
-    // escuchando mensaje del addProduct
+    // escuchando addProduct
     socketConnected.on('addProduct', async(product)=>{
         await ProductManager.addProduct(product);
     })
 
-    // escuchando mensaje del deleteProduct
+    // escuchando deleteProduct
     socketConnected.on('deleteProduct', async(id)=>{
         await ProductManager.deleteProduct(Number(id));
     })
