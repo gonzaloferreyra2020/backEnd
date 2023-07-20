@@ -11,16 +11,13 @@ import { cartsRouter } from "./routes/carts.routes.js";
 const port = 8080;
 const app = express();
 
+//servidor https en una variable
+const httpServer = app.listen(port,()=>console.log(`Servidor ok en el port ${port}`));
+
 //middlewares para usar POST
 app.use(express.json());
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname,"/public")));
-
-//servidor https en una variable
-const httpServer = app.listen(port,()=>console.log(`Server ok on port ${port}`));
-
-//mensaje por consola
-app.listen(port,()=>console.log(`Server ok on port ${port}`));
 
 //handlebars
 app.engine('.hbs', engine({extname: '.hbs'}));
