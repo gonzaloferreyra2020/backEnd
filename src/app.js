@@ -1,5 +1,10 @@
 import express from "express";
-
+import {engine} from "express-handlebars";
+import { __dirname } from "./utils.js";
+import path from "path";
+import {Server} from "socket.io";
+import { viewsRouter } from "./routes/views.routes.js";
+import { ProductManager } from "./dao/productManager.js";
 import { productsRouter } from "./routes/products.routes.js";
 import { cartsRouter } from "./routes/carts.routes.js";
 
@@ -25,6 +30,7 @@ let messages = [];
 //routes
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
+app.use(viewsRouter);
 
 socketServer.on("connection", async (socketConnected)=>{
     console.log(`Nuevo usuario conectado  ${socketConnected.id}`);
