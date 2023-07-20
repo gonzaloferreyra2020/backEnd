@@ -14,6 +14,10 @@ const app = express();
 //middlewares para usar POST
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
+app.use(express.static(path.join(__dirname,"/public")));
+
+//servidor https
+const httpsServer = app.listen(port,()=>console.log(`Server esta funcionando en el puerto ${port}`));
 
 //mensaje por consola
 app.listen(port,()=>console.log(`Server listening on port ${port}`));
@@ -32,19 +36,21 @@ app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use(viewsRouter);
 
+
 socketServer.on("connection", async (socketConnected)=>{
     console.log(`Nuevo usuario conectado  ${socketConnected.id}`);
-    //lista de productos
+    // lista de productos para realtime
     const listProductRealTime = await ProductManager.getProducts;
     
-    //enviando lista
+    // enviando lista de productos
     socketConnected.emit('listProductReal',listProductRealTime );
-  
-    //escuchando mensaje
+
+    // escuchando mensaje del addProduct
     socketConnected.on('addProduct', async(product)=>{
         await ProductManager.addProduct(product);
     })
-    //escuchando mensaje deleteProduct
+
+    // escuchando mensaje del deleteProduct
     socketConnected.on('deleteProduct', async(id)=>{
         await ProductManager.deleteProduct(Number(id));
     })
