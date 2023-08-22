@@ -1,6 +1,6 @@
-import { cartModel } from "../../models/carts.model.js"
+import { cartModel } from "../../models/carts.model.js";
 
-export default class CartManager {
+export class CartManager {
     getCarts = async () => {
         try {
             const carts = await cartModel.find().lean();

@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { ProductMongo } from "../dao/managers/mongo/productsMongo.js"
+import { productMongo } from "../dao/managers/mongo/productsMongo.js"
 import { checkUserAuthenticated, showLoginView } from "../dao/middlewares/auth.js";
 
-const pm = new ProductMongo()
+const pm = new productMongo()
 
 const routerV = Router()
 
@@ -34,4 +34,4 @@ routerV.get("/perfil", checkUserAuthenticated, (req,res)=>{
 });
 
 
-export default routerV
+export {routerV as viewsRouter}

@@ -1,6 +1,6 @@
 import { Router } from "express"; 
 import { CartManager } from "../dao/managers/mongo/cartMongo.js";
-import { ProductManager } from "../dao/managers/mongo/productsMongo.js";
+import { productMongo } from "../dao/managers/mongo/productsMongo.js";
 
 const cartService = new CartManager("carts.json");
 const productService = new ProductManager("products.json");
@@ -70,4 +70,4 @@ router.post("/:cid/product/:pid",async (req,res)=>{
     }
 });
 
-export {router as cartsRouter}
+export {router as cartsRouter};

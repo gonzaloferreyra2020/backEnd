@@ -1,12 +1,12 @@
 import { Router } from "express"; 
-import { ProductManager } from "../dao/managers/mongo/productsMongo.js";
+import { productMongo } from "../dao/managers/mongo/productsMongo.js";
 
 import { engine } from 'express-handlebars';
 import path from "path";
 import {__dirname} from "../../src/utils.js";
 
 //nueva instancia de ProductManager
-const productService = new ProductManager(`products.json`);
+const productService = new productMongo(`products.json`);
 
 //función para validar los campos
 const validateFields = (req,res,next)=>{

@@ -3,14 +3,12 @@ import {engine} from "express-handlebars";
 import { __dirname } from "./utils.js";
 import {Server} from "socket.io";
 import { viewsRouter } from "./routes/views.routes.js";
-import { productsMongo } from "./dao/managers/mongo/productsMongo.js";
+import { productMongo } from "./dao/managers/mongo/productsMongo.js";
 import { productsRouter } from "./routes/products.routes.js";
 import { cartsRouter } from "./routes/carts.routes.js";
 import { config } from "./config/config.js";
 import { connectDB } from "./config/dbConection.js";
-import routerP from './routes/products.routes.js';
-import routerC from './routes/carts.routes.js';
-import routerV from './routes/views.routes.js';
+import { sessionsRouter } from "./routes/sessions.routes.js";
 
 const port = config.server.port;
 const app = express();
