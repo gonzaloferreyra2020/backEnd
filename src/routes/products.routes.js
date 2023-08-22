@@ -1,5 +1,5 @@
 import { Router } from "express"; 
-import { ProductManager } from "../dao/productManager.js";
+import { ProductManager } from "../dao/managers/mongo/productsMongo.js";
 
 import { engine } from 'express-handlebars';
 import path from "path";
@@ -56,7 +56,7 @@ router.get("/:pid",async (req,res)=>{
 
 //agregar productos
 router.post("/", validateFields, async (req,res)=>{
-     try {
+    try {
         const productInfo = req.body;
         const productCreated = await productService.save(productInfo);
         res.json({status:"success", data:productCreated, message:"Se ha creado el producto"});

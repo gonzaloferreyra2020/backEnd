@@ -8,9 +8,9 @@ import { productsRouter } from "./routes/products.routes.js";
 import { cartsRouter } from "./routes/carts.routes.js";
 import { config } from "./config/config.js";
 import { connectDB } from "./config/dbConection.js";
-import routerP from './routers/products.router.js';
-import routerC from './routers/carts.router.js';
-import routerV from './routers/views.router.js';
+import routerP from './routes/products.routes.js';
+import routerC from './routes/carts.routes.js';
+import routerV from './routes/views.routes.js';
 
 const port = config.server.port;
 const app = express();

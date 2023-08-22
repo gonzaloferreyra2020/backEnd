@@ -1,6 +1,6 @@
-import { productsModel } from "../models/products.model.js";
+import { productsModel } from "../../models/products.model.js";
 
-export default class ProductMongo{
+export class ProductMongo{
     constructor(){
         this.model = productsModel;
     };
@@ -21,10 +21,16 @@ export default class ProductMongo{
         } catch (error) {
             throw error;
         }
-    }
+    };
 
     async getById(id){
         //devuelve el producto que cumple con el id recibido
+        try {
+            return await productsModel.findById(id)
+
+        } catch (err) {
+            return { error: err.message }
+        }
     };
 
     async save(product){
@@ -35,4 +41,4 @@ export default class ProductMongo{
             throw error;
         }
     };
-}
+};

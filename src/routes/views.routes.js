@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { ProductManagerMongo } from "../dao/managers/productManagerMongo.js"
-import { checkUserAuthenticated, showLoginView } from "../middlewares/auth.js";
+import { ProductMongo } from "../dao/managers/mongo/productsMongo.js"
+import { checkUserAuthenticated, showLoginView } from "../dao/middlewares/auth.js";
 
-const pm = new ProductManagerMongo()
+const pm = new ProductMongo()
 
 const routerV = Router()
 
