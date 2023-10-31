@@ -1,0 +1,25 @@
+<h1>rProducts</h1>
+<h3>Agregar Productos</h3>
+
+<form id="add-product">
+    <input type="text" name="title" id="title" placeholder="Título">
+    <input type="text" name="description" id="description" placeholder="Descripcion">
+    <input type="number" name="price" placeholder="Precio">
+    <input type="text" name="code" placeholder="Codigo">
+    <input type="number" name="stock" id="stock" placeholder="Stock">
+    <input type="text" name="category" placeholder="Categoria">
+    <button id="btn-add-product" class="btn-btn-primary">Add</button> 
+</form>
+<h2> Para eliminar un producto:</h2>
+<form id="delete-product">
+    <input type="text" name="id-prod" id="id-prod"
+        placeholder="Ingrese ID">
+    <button class="botons" type="button" id="delete-btn">Eliminar</button>
+</form>
+
+<h1>Listado de Productos</h1>
+<h3>-------------</h3>
+<div id="list-products-all"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realtime.js"></script>
